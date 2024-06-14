@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Admission Eligibility Checker</title>
+    <script>
+        function checkEligibility() {
+            const highSchoolPercentage = parseFloat(document.getElementById('highSchoolPercentage').value);
+            const mathsPercentage = parseFloat(document.getElementById('mathsPercentage').value);
+            const sciencePercentage = parseFloat(document.getElementById('sciencePercentage').value);
+
+            let result = '';
+
+            // Criteria for eligibility
+            const minHighSchoolPercentage = 60;
+            const minMathsPercentage = 60;
+            const minSciencePercentage = 60;
+
+            if (isNaN(highSchoolPercentage) || isNaN(mathsPercentage) || isNaN(sciencePercentage)) {
+                result = 'Please enter valid percentages for all fields.';
+            } else if (highSchoolPercentage >= minHighSchoolPercentage && mathsPercentage >= minMathsPercentage && sciencePercentage >= minSciencePercentage) {
+                result = 'Congratulations! You are eligible for engineering admission.';
+            } else {
+                result = 'Sorry, you are not eligible for engineering admission.';
+            }
+
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</head>
+<body>
+    <h2>Engineering Admission Eligibility Checker</h2>
+    <form>
+        <label for="highSchoolPercentage">High School Percentage:</label>
+        <input type="number" id="highSchoolPercentage" name="highSchoolPercentage" min="0" max="100" required>
+        <br><br>
+        <label for="mathsPercentage">Maths Percentage:</label>
+        <input type="number" id="mathsPercentage" name="mathsPercentage" min="0" max="100" required>
+        <br><br>
+        <label for="sciencePercentage">Science Percentage:</label>
+        <input type="number" id="sciencePercentage" name="sciencePercentage" min="0" max="100" required>
+        <br><br>
+        <button type="button" onclick="checkEligibility()">Check Eligibility</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html>
