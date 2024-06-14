@@ -1,0 +1,262 @@
+jsp(data print)
+
+
+index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>User Registration Form</h2>
+    <form action="register.jsp" method="post"onsubmit="return validity()">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+        
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+        
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+        
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br><br>
+        
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea><br><br>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        
+        <label for="email">Email:</label>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+        
+        <input type="submit" value="Register">
+    </form>
+    <script>
+        
+</body>
+</html>
+
+register.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Status</title>
+</head>
+<body>
+    <h2>Registration Status</h2>
+    <% 
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        int age = Integer.parseInt(request.getParameter("age"));
+        String gender = request.getParameter("gender");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String confirm_password = request.getParameter("confirm_password");
+    %>
+    <p>First Name: <%= firstName %></p>
+    <p>Last Name: <%= lastName %></p>
+    <p>Age: <%= age %></p>
+    <p>Gender: <%= gender %></p>
+    <p>Address: <%= address %></p>
+    <p>Email: <%= email %></p>
+    <p>Password: <%= password %></p>
+</body>
+</html>
+
+
+servlet (add)
+index.html
+
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>ADD</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            table,th,td{
+                border-collapse:collapse;}</style>
+    </head>
+   
+    <body>
+        <form action="add" method="POST">
+            <table width="250" border="1">
+                <tr>
+                    <td> Number 1</td>
+                    <td><input type="text" id="num1" name="num1"></td>
+                </tr>
+                <tr>
+                    <td> Number 2</td>
+                    <td><input type="text" id="num2" name="num2"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Add"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
+   
+add.java
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebServlet("/add")
+public class add extends HttpServlet {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+        PrintWriter out = res.getWriter();
+        int num1 = Integer.parseInt(req.getParameter("num1")); // Fixed missing closing parenthesis
+        int num2 = Integer.parseInt(req.getParameter("num2")); // Fixed missing closing parenthesis
+
+        int tot = num1 + num2;
+
+        out.println("Your Total is " + tot);
+    }
+}
+
+calculator (jsp)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Calculator</title>
+</head>
+<body>
+    <h2>Simple Calculator</h2>
+    <form action="calculator.jsp" method="post">
+        <label for="num1">Number 1:</label>
+        <input type="text" id="num1" name="num1" required>
+        <br><br>
+        <label for="num2">Number 2:</label>
+        <input type="text" id="num2" name="num2" required>
+        <br><br>
+        <label for="operation">Operation:</label>
+        <select id="operation" name="operation" required>
+            <option value="add">Add</option>
+            <option value="subtract">Subtract</option>
+            <option value="multiply">Multiply</option>
+            <option value="divide">Divide</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Calculate">
+    </form>
+
+    <%
+        // Check if the request method is POST
+        if ("POST".equalsIgnoreCase(request.getMethod())) {
+            try {
+                // Retrieve the input values
+                double num1 = Double.parseDouble(request.getParameter("num1"));
+                double num2 = Double.parseDouble(request.getParameter("num2"));
+                String operation = request.getParameter("operation");
+                double result = 0;
+
+                // Perform the calculation based on the selected operation
+                if ("add".equals(operation)) {
+                    result = num1 + num2;
+                } else if ("subtract".equals(operation)) {
+                    result = num1 - num2;
+                } else if ("multiply".equals(operation)) {
+                    result = num1 * num2;
+                } else if ("divide".equals(operation)) {
+                    if (num2 != 0) {
+                        result = num1 / num2;
+                    } else {
+                        out.println("<p style='color:red;'>Error: Cannot divide by zero.</p>");
+                        return;
+                    }
+                } else {
+                    out.println("<p style='color:red;'>Invalid operation.</p>");
+                    return;
+                }
+
+                // Display the result
+                out.println("<p>Result: " + result + "</p>");
+
+            } catch (NumberFormatException e) {
+                out.println("<p style='color:red;'>Error: Invalid input. Please enter valid numbers.</p>");
+            }
+        }
+    %>
+</body>
+</html>
+
+
+cookies(jsp)
+login.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Login</title>
+</head>
+<body>
+    <h2>User Login Form</h2>
+    <form action="logn.jsp" method="post">
+        Username: <input type="text" name="username" required><br>
+        Password: <input type="password" name="password" required><br>
+        Remember Me: <input type="checkbox" name="rememberMe"><br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+
+logn.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="javax.servlet.http.Cookie" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Result</title>
+</head>
+<body>
+    <%
+        if ("POST".equals(request.getMethod())) {
+            String username = request.getParameter("username").trim();
+            String password = request.getParameter("password").trim();
+            String rememberMe = request.getParameter("rememberMe");
+
+            if ("midhuna".equals(username) && "midhu10".equals(password)) {
+                
+                out.println("<h2>Welcome " + username + ", Login Successful</h2>");
+                if ("on".equals(rememberMe)) {
+                    Cookie cookie = new Cookie("username", URLEncoder.encode(username, "UTF-8"));
+                    cookie.setMaxAge(3600); 
+                    response.addCookie(cookie);
+                    out.println("Cookie set for username: " + username);
+                }
+            } else {
+               
+                out.println("<h2>Login Failed</h2>");
+            }
+        } else {
+            
+            out.println("<h2>Please submit the login form.</h2>");
+        }
+    %>
+</body>
+</html>

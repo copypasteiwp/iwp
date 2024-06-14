@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Range Validation</title>
+</head>
+<body>
+    <form action="#" onsubmit="return validate()" method="post" id="myform">
+        <label for="num1">Number:</label>
+        <input type="number" id="num1" placeholder="Enter number between 1-999">
+        <input type="submit" value="Submit" id="submit">
+    </form>
+    <!-- Initially hide the success message -->
+    <p id="success" style="display: none;">Valid</p>
+
+<script>
+    function validate() {
+        var num1 = document.getElementById('num1').value;
+        if (num1 > 0 && num1 < 1000) {
+            // Display the success message if valid
+            document.getElementById("success").style.display = "block";
+            // Reset the form after displaying the message
+            document.getElementById("myform").reset();
+            // Prevent the form from submitting
+            return false;
+        } else {
+            // Alert and prevent form submission if invalid
+            alert("Invalid");
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

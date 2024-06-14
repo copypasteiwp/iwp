@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Validation</title>
+    <style>
+        #success {
+            color: green;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="myform" action="#" method="post" onsubmit="return validation()">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="phone">Phone num:</label><br>
+        <input type="text" id="phone" name="phone"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <label for="website">Website:</label><br>
+        <input type="text" id="website" name="website"><br>
+        <label for="date">Date:</label><br>
+        <input type="text" id="date" name="date" placeholder="DD/MM/YYYY"><br>
+        Number:<br>
+        <input type="number" id="num" name="num"><br>
+        Experience:<br>
+        <input type="number" id="exp" name="exp"><br>
+        PAN Number:<br>
+        <input type="text" id="pan" name="pan"><br>
+        <input type="submit" value="submit">     
+    </form>
+    <p id="success">Successful!</p>
+    <script>
+        function validation() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var password = document.getElementById("password").value;
+            var website = document.getElementById("website").value;
+            var date = document.getElementById("date").value;
+            var num = document.getElementById("num").value;
+            var exp = document.getElementById("exp").value;
+            var pan = document.getElementById("pan").value;
+
+            if(num === ""){
+                alert("Number should not be empty.");
+                return false;
+            } else if(num < 0 || num > 999) {
+                alert("Number must be within the range of 0-999");
+                return false;
+            }
+
+            if(exp === ""){
+                alert("Experience field should not be empty.");
+                return false;
+            } else if (exp < 1 || exp > 51) {
+                alert("Experience must be 1-50 years");
+                return false;
+            }
+
+            var panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            if (pan === "") {
+                alert("Enter PAN number.");
+                return false;
+            } else if (!panPattern.test(pan)) {
+                alert("Enter a valid PAN number.");
+                return false;
+            }
+
+            // Regular expression for date format DD/MM/YYYY
+            let dateformat = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}$/;
+
+            if (name === "") {
+                alert("Enter a name.");
+                return false;
+            } else if (!/^[A-Za-z]+$/.test(name)) {
+                alert("Enter only alphabets");
+                return false;
+            }
+
+            if (email === "") {
+                alert("Enter email.");
+                return false;
+            } else if (email.indexOf("@") === -1) {
+                alert("Enter email with '@'");
+                return false;
+            } else if (email.indexOf(".") === -1) {
+                alert("Enter email with '.'");
+                return false;
+            }
+
+            const pattern = /^\d{10}$/;
+            if (!pattern.test(phone)) {
+                alert("Enter valid phone number.");
+                return false;
+            }
+
+            if (!validationpass(password)) {
+                return false;
+            }
+
+            const webpattern = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+\.?(:\d+)?(\/[^\s]*)?)$/i;
+            if (website === "") {
+                alert("Please fill in the URL field.");
+                return false;
+            } else if (!webpattern.test(website)) {
+                alert("Please enter a valid URL.");
+                return false;
+            }
+
+            // Matching the date through regular expression
+            if (date.match(dateformat)) {
+                let dateParts = date.split('/');
+                let day = parseInt(dateParts[0]);
+                let month = parseInt(dateParts[1]);
+                let year = parseInt(dateParts[2]);
+
+                // Create a list of days of a month
+                let ListofDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+                if (month == 1 || month > 2) {
+                    if (day > ListofDays[month - 1]) {
+                        // To check if the date is out of range
+                        alert("Invalid date");
+                        return false;
+                    }
+                } else if (month == 2) {
+                    let leapYear = false;
+                    if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+                        leapYear = true;
+                    }
+                    if (!leapYear && day >= 29) {
+                        alert("Invalid date");
+                        return false;
+                    } else if (leapYear && day > 29) {
+                        alert("Invalid date");
+                        return false;
+                    }
+                }
+            } else {
+                alert("Invalid date format!");
+                return false;
+            }
+
+            // Display success message and reset form
+            document.getElementById("success").style.display = "block";
+            document.getElementById("myform").reset();
+
+            // Prevent form submission
+            return false;
+        }
+
+        function validationpass(password) {
+            if (password === "") {
+                alert("Enter a password");
+                return false;
+            } else if (!/\d/.test(password)) {
+                alert("Enter a password with a number");
+                return false;
+            } else if (!/[A-Z]/.test(password)) {
+                alert("Enter a password with uppercase letters");
+                return false;
+            } else if (!/[a-z]/.test(password)) {
+                alert("Enter a password with lowercase letters");
+                return false;
+            } else if (password.length < 8) {
+                alert("Enter a password with at least 8 characters");
+                return false;
+            } else if (!/[!@#$%^&*()]/.test(password)) {
+                alert("Enter a password with special characters");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
+

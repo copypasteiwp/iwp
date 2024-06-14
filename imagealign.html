@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Imagealignment</title></head>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+            gap: 20px; /* Gap between grid items */
+        }
+
+        .grid-item {
+            overflow: hidden; /* Ensure images do not overflow their containers */
+        }
+
+        .grid-item img {
+            width: 100%; /* Make images fill their containers */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+    </style>
+<body>
+    <div class="grid-container">
+    <div class="grid-item">
+      <img src="image1.jpg" alt="Image 1">
+    </div>
+    <div class="grid-item">
+      <img src="image2.jpg" alt="Image 2">
+    </div>
+    <div class="grid-item">
+      <img src="image3.jpg" alt="Image 3">
+    </div>
+    <div class="grid-item">
+      <img src="image4.jpg" alt="Image 4">
+    </div>
+  </div>
+</body>
+</html>
+  

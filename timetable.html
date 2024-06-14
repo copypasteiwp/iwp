@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timetable</title>
+<style>
+    .timetable {
+    max-width: 100%;
+    margin: 20px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid block;
+}
+th, td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: normal;
+}
+
+
+</style> <!-- Link to external CSS file -->
+</head>
+<body>
+    <div class="timetable">
+        <table>
+            <thead>
+                <tr>
+                    <th >DAYS</th> <!-- Empty header cell for spacing -->
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                    <th>Period 7</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Monday</td>
+                    <td>Mathematics</td>
+                    <td rowspan="7">Break</td>
+                    <td>Science</td>
+                    <td rowspan="7">Lunch</td>
+                    <td>English</td>
+                    <td rowspan="7">Break</td>
+                    <td>History</td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td>Geography</td>
+                    <td>Physics</td>
+                    <td>Chemistry</td>
+                    <td>Art</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>Geography</td>
+                    <td>Physics</td>
+                    <td>Chemistry</td>
+                    <td>Art</td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td>Geography</td>
+                    <td>Physics</td>
+                    <td>Chemistry</td>
+                    <td>Art</td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    <td>Geography</td>
+                    <td>Physics</td>
+                    <td>Chemistry</td>
+                    <td>Art</td>
+                </tr>
+                <tr>
+                    <td>Saturday</td>
+                    <td>Geography</td>
+                    <td>Physics</td>
+                    <td>Chemistry</td>
+                    <td>Art</td>
+                </tr>
+                <!-- Repeat rows for Wednesday, Thursday, Friday, etc. -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
